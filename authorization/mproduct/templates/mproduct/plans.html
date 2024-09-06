@@ -1,0 +1,14 @@
+{% extends 'mproduct/base.html' %}
+
+{% block pagecontent %}
+<div class="container">
+    <div class="row">
+        {% for plan in plans %}
+        <div class="col">
+            <div>{{plan.name}}</div>
+            <div>{{plan.price}}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

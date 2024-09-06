@@ -1,0 +1,63 @@
+{% extends 'mproduct/base.html' %}
+
+{% block pagecontent %}
+<div class="container py-5">
+    {% if is_authenticated %}
+    <div class="d-flex flex-column align-items-center py-3">
+        <div class="fs-3 my-2">Grow your business 10x with our product</div>
+        <div><a href="#" class="btn btn-lg btn-outline-success">Get Started <i class="bi bi-arrow-right"></i></a></div>
+    </div>
+    <div class="row align-items-center g-0 py-3">
+        <div class="col"><hr></div>
+        <div class="col-1 d-flex justify-content-center fs-4">OR</div>
+        <div class="col"><hr></div>
+    </div>
+    <div class="py-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="fs-4 fw-bold pb-3">Select a store from our range of partners</div>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input type="search" id="search-bar" placeholder="Start typing..." class="form-control">
+                    <div id="suggestions" class="list-group position-absolute w-100" style="display: none;z-index: 1000;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="d-flex justify-content-center">
+        <a href="{% url 'mproduct:register' %}" class="btn btn-outline-primary">Get started</a>
+    </div>
+    {% endif %}
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#search-bar').keyup(function() {
+            var query = $(this).val();
+            if (query.length > 1) {
+                $.ajax({
+                    url: '{% url "mproduct:search_brands" %}',
+                    data: {'data':query},
+                    success: function(data) {
+                        // console.log(data);
+                        $('#suggestions').empty().hide();
+                        if (data.length > 0) {
+                            $.each(data, function(index,item) {
+                                $('#suggestions').append(`<a href='#' class='list-group-item list-group-item-action'>` + item.name + `</a>`).show();
+                            });
+                        }
+                    }
+                });
+            } else {
+                $('#suggestions').hide();
+            }
+        });
+        $(document).click(function(e) {
+            if (!$(e.target).closest('#search-bar').length) {
+                $('#suggestions').hide();
+            }
+        });
+    });
+</script>
+{% endblock %}
