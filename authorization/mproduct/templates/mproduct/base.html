@@ -48,7 +48,7 @@
                                                                                         </li>
                                                                                 {% else %}
                                                                                         <li class="nav-item">
-                                                                                                <a class="nav-link" href="#">Plans</a>
+                                                                                                <a class="nav-link" href="{% url 'mproduct:plans' %}">Plans</a>
                                                                                         </li>
                                                                                 {% endif %}
                                                                         </ul>
@@ -61,7 +61,7 @@
                                                                                                    aria-expanded="false"><i class="bi bi-person-circle"></i></a>
                                                                                                 <ul class="dropdown-menu dropdown-menu-lg-end">
                                                                                                         <li>
-                                                                                                                <a href="#" class="dropdown-item d-flex justify-content-between">
+                                                                                                                <a href="{% url 'mproduct:settings' %}" class="dropdown-item d-flex justify-content-between">
                                                                                                                         <div class="col-4">
                                                                                                                                 <i class="bi bi-gear-fill"></i>
                                                                                                                         </div>

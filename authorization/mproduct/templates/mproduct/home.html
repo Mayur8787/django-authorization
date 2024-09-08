@@ -5,7 +5,7 @@
     {% if is_authenticated %}
     <div class="d-flex flex-column align-items-center py-3">
         <div class="fs-3 my-2">Grow your business 10x with our product</div>
-        <div><a href="#" class="btn btn-lg btn-outline-success">Get Started <i class="bi bi-arrow-right"></i></a></div>
+        <div><a href="{% url 'mproduct:plans' %}" class="btn btn-lg btn-outline-success">Get Started <i class="bi bi-arrow-right"></i></a></div>
     </div>
     <div class="row align-items-center g-0 py-3">
         <div class="col"><hr></div>
@@ -40,7 +40,7 @@
                     url: '{% url "mproduct:search_brands" %}',
                     data: {'data':query},
                     success: function(data) {
-                        // console.log(data);
+                        console.log(data);
                         $('#suggestions').empty().hide();
                         if (data.length > 0) {
                             $.each(data, function(index,item) {
