@@ -28,6 +28,21 @@
         <div class="container-md">
             <div id="form-container">
                 <h1 class="mb-4 d-flex justify-content-center">Login</h1>
+                {% if form.errors %}
+                    <div class="py-3">
+                        {% for field,errors in form.errors.items %}
+                            {% for error in errors %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <span>{{ error }}</span>
+                                    <button class="btn-close"
+                                            type="button"
+                                            data-bs-dismiss="alert"
+                                            aria-label="close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 <form method="post">
                     {% csrf_token %}
                     <div class="row mb-4">
@@ -35,7 +50,7 @@
                             <label for="username" class="form-label">
                                 Username <span class="text-danger">*</span>
                             </label>
-                            <input type="text" name="username" placeholder="Username" class="form-control">
+                            <input type="text" name="username" placeholder="Username" class="form-control" required>
                         </div>
                     </div>
                     <div class="row mb-4">
@@ -50,7 +65,7 @@
                                     <a href="#" class="text-danger text-decoration-none">Forgot Password ?</a>
                                 </div>
                             </div>
-                            <input type="password" name="password" placeholder="Password" class="form-control">
+                            <input type="password" name="password" placeholder="Password" class="form-control" required>
                         </div>
                     </div>
                     <div class="row">
@@ -67,5 +82,4 @@
             </div>
         </div>
     </body>
-    {{form.errors}}
 </html>

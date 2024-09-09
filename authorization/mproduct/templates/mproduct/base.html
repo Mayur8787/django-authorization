@@ -44,8 +44,13 @@
                                                                                 </li>
                                                                                 {% if is_authenticated %}
                                                                                         <li class="nav-item">
-                                                                                                <a class="nav-link" href="#">Subscription</a>
+                                                                                                <a class="nav-link" href="{% url 'mproduct:subscription' %}">Subscription</a>
                                                                                         </li>
+                                                                                        {% if is_brand %}
+                                                                                        <li class="nav-item">
+                                                                                                <a href="{% url 'mproduct:subscribers' %}" class="nav-link">Subscribers</a>
+                                                                                        </li>
+                                                                                        {% endif %}
                                                                                 {% else %}
                                                                                         <li class="nav-item">
                                                                                                 <a class="nav-link" href="{% url 'mproduct:plans' %}">Plans</a>

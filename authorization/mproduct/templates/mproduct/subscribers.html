@@ -1,0 +1,44 @@
+{% extends 'mproduct/base.html' %}
+{% block pagecontent %}
+    <div class="container">
+        {% if subscribers %}
+            <div class="table-responsive py-3">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Name</th>
+                            <th>Plan</th>
+                            <th>Purchased on</th>
+                            <th>Subscription status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for subscriber in subscribers %}
+                            <tr class="text-center">
+                                <td>{{ subscriber.name }}</td>
+                                <td>{{ subscriber.plan.name }}</td>
+                                <td>{{ subscriber.purchased_on }}</td>
+                                <td>
+                                    {% if subscriber.subscription_status %}
+                                    <span class="text-success">Active</span>
+                                    {% else %}
+                                    <span class="text-danger">Inactive</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <form action="{% url 'mproduct:status' subscriber.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="submit" value="{% if subscriber.subscription_status %}Hold{% else %}Activate{% endif %}" class="btn {% if subscriber.subscription_status %}btn-secondary{% else %}btn-primary{% endif %}">
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="py-5">You don't have subscribers.</div>
+        {% endif %}
+    </div>
+{% endblock %}

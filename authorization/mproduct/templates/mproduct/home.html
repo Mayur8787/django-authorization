@@ -33,18 +33,21 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
+        var brandPlansUrl = '{% url "mproduct:brand_plans" 0 %}';  // Placeholder URL with dummy pk
+
         $('#search-bar').keyup(function() {
             var query = $(this).val();
             if (query.length > 1) {
                 $.ajax({
                     url: '{% url "mproduct:search_brands" %}',
-                    data: {'data':query},
+                    data: {'data': query},
                     success: function(data) {
                         console.log(data);
                         $('#suggestions').empty().hide();
                         if (data.length > 0) {
-                            $.each(data, function(index,item) {
-                                $('#suggestions').append(`<a href='#' class='list-group-item list-group-item-action'>` + item.name + `</a>`).show();
+                            $.each(data, function(index, item) {
+                                var itemUrl = brandPlansUrl.replace('0', item.id);  // Replace dummy pk with actual id
+                                $('#suggestions').append(`<a href="${itemUrl}" class='list-group-item list-group-item-action'>` + item.name + `</a>`).show();
                             });
                         }
                     }
@@ -53,6 +56,7 @@
                 $('#suggestions').hide();
             }
         });
+
         $(document).click(function(e) {
             if (!$(e.target).closest('#search-bar').length) {
                 $('#suggestions').hide();
