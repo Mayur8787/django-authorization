@@ -1,0 +1,100 @@
+{% extends 'mproduct/base.html' %}
+{% block pagecontent %}
+<style>
+    .material {
+        display: inline-flex;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        padding: 3px;
+    }
+    .material-text {
+        margin-right: 10px;
+        font-weight: bold;
+        padding-left: 5px;
+        font-size: small;
+    }
+    .material-close {
+        opacity: 0.5;
+    }
+    .material-close:hover {
+        opacity: 1;
+    }
+</style>
+    <div class="container">
+        <div class="py-3">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-pills card-header-pills">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">Invite by Email</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Invite with a Link</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Add by CSV</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <input type="text"
+                           class="form-control"
+                           id="email-input"
+                           placeholder="Enter email address">
+                    <div id="email-container" class="mt-5">
+                        <div class="material bg-body-secondary" id="editable-material">
+                            <span class="material-text">mayurgund8773@gmail.com</span>
+                            <span class="pe-2 material-close" role="button"><i class="bi bi-x-circle-fill"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            var holdTimeout;
+            var holdDuration = 1000; // Time in ms to recognize a "hold"
+    
+            // Function to make the span editable
+            function makeEditable($element) {
+                var currentText = $element.text();
+                var $inputField = $('<input type="text" class="" />');
+                $inputField.val(currentText);
+                $element.replaceWith($inputField);
+                $inputField.focus();
+    
+                // When input loses focus, revert it back to a span with updated text
+                $inputField.on('blur', function() {
+                    var newText = $inputField.val();
+                    var $newSpan = $('<span class="material-text"></span>').text(newText);
+                    $inputField.replaceWith($newSpan);
+                    applyEventListenersToText($newSpan); // Re-apply listeners
+                });
+            }
+    
+            // Apply double-click and long-press events to the text span
+            function applyEventListenersToText($element) {
+                // Double-click event to make the span editable
+                $element.on('dblclick', function() {
+                    makeEditable($(this));
+                });
+    
+                // Long-press event to make the span editable
+                $element.on('mousedown', function() {
+                    holdTimeout = setTimeout(function() {
+                        makeEditable($element);
+                    }, holdDuration);
+                });
+    
+                // Clear hold timeout on mouse up or leaving the element
+                $element.on('mouseup mouseleave', function() {
+                    clearTimeout(holdTimeout);
+                });
+            }
+    
+            // Initialize event listeners for the material-text span
+            applyEventListenersToText($('.material-text'));
+        });
+    </script>    
+{% endblock %}

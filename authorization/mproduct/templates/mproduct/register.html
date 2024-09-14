@@ -18,92 +18,139 @@
               href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <style>
         #form-container{
-            max-width: 480px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 2%;
+            margin-top: 1%;
         }
         </style>
     </head>
     <body>
         <div class="container-md">
-            <div id="form-container">
-                <h1 class="mb-4 d-flex justify-content-center">Register</h1>
-                {% if form.errors %}
-                    <div class="py-3">
-                        {% for field,errors in form.errors.items %}
-                            {% for error in errors %}
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <span>{{ error }}</span>
-                                    <button class="btn-close"
-                                            type="button"
-                                            data-bs-dismiss="alert"
-                                            aria-label="close"></button>
-                                </div>
+            <div id="form-container" class="bg-body-secondary rounded-5 shadow-lg">
+                <div class="px-5 py-4">
+                    <h1 class="mb-4 d-flex justify-content-center">Register</h1>
+                    {% if form.errors %}
+                        <div class="py-3">
+                            {% for field,errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <span>{{ error }}</span>
+                                        <button class="btn-close"
+                                                type="button"
+                                                data-bs-dismiss="alert"
+                                                aria-label="close"></button>
+                                    </div>
+                                {% endfor %}
                             {% endfor %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="username" class="form-label">
-                                Username <span class="text-danger">*</span>
-                            </label>
-                            <input type="text"
-                                   name="username"
-                                   placeholder="Username"
-                                   class="form-control"
-                                   required>
                         </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col">
-                            <label for="email" class="form-label">
-                                Email <span class="text-danger">*</span>
-                            </label>
-                            <input type="email"
-                                   name="email"
-                                   placeholder="Email@domain.com"
-                                   class="form-control"
-                                   required>
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <div class="col-12 col-sm-6 mb-sm-0 mb-3">
+                                <div class="form-floating">
+                                    <input type="text"
+                                           name="firstname"
+                                           id="firstname"
+                                           placeholder="First Name"
+                                           class="form-control" required>
+                                    <label for="firstname" class="fw-bold">First Name</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-floating">
+                                    <input type="text"
+                                           name="lastname"
+                                           id="lastname"
+                                           placeholder="Last Name"
+                                           class="form-control" required>
+                                    <label for="lastname" class="fw-bold">Last Name</label>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col">
-                            <label for="password1" class="form-label">
-                                Password <span class="text-danger">*</span>
-                            </label>
-                            <input type="password"
-                                   name="password1"
-                                   placeholder="password"
-                                   class="form-control"
-                                   required>
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <input type="text"
+                                       id="username"
+                                       name="username"
+                                       placeholder="Username"
+                                       class="form-control"
+                                       required>
+                                <label for="username" class="fw-bold">Username*</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col">
-                            <label for="password2" class="form-label">
-                                Confirm Password <span class="text-danger">*</span>
-                            </label>
-                            <input type="password"
-                                   name="password2"
-                                   placeholder="confirm password"
-                                   class="form-control"
-                                   required>
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <input type="email"
+                                       name="email"
+                                       id="email"
+                                       placeholder="Email@domain.com"
+                                       class="form-control"
+                                       required>
+                                <label for="email" class="fw-bold">Business Email*</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <input type="submit"
-                                   class="btn btn-outline-primary form-control"
-                                   value="Register">
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <input type="text"
+                                       id="company"
+                                       name="company"
+                                       placeholder="Business Name"
+                                       class="form-control"
+                                       required>
+                                <label for="company" class="fw-bold">Business Name*</label>
+                            </div>
                         </div>
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <select name="companysize"
+                                        id="companysize"
+                                        class="form-select"
+                                        aria-label="companysize"
+                                        required>
+                                    <option selected>Choose a company size</option>
+                                    <option value="10">1 - 10</option>
+                                    <option value="50">11 - 50</option>
+                                    <option value="200">51 - 200</option>
+                                    <option value="500">201 - 500</option>
+                                    <option value="1000">501 - 1000</option>
+                                    <option value="1001">1001 - more</option>
+                                </select>
+                                <label for="companysize" class="fw-bold">Company Size*</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <input type="password"
+                                       id="password1"
+                                       name="password1"
+                                       placeholder="password"
+                                       class="form-control"
+                                       required>
+                                <label for="password1" class="form-label fw-bold">Password*</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <input type="password"
+                                       id="password2"
+                                       name="password2"
+                                       placeholder="confirm password"
+                                       class="form-control"
+                                       required>
+                                <label for="password2" class="fw-bold">Confirm Password*</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary fw-bold form-control">Sign up</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="d-flex justify-content-end">
+                        <span>Have an account ? <a href="{% url 'mproduct:login' %}">Sign in</a></span>
                     </div>
-                </form>
-                <div class="d-flex justify-content-end">
-                    <a href="{% url 'mproduct:login' %}">Existing user ?</a>
                 </div>
             </div>
         </div>
