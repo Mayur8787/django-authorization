@@ -1,0 +1,45 @@
+{% extends 'mproduct/base.html' %}
+{% block pagecontent %}
+    <div class="container">
+        <div class="py-3">
+            <div class="fs-3">Employee Details</div>
+            <hr>
+            <div>
+                {% if is_employee %}
+                    <div>Hi, {{ employee }}</div>
+                {% else %}
+                    <div class="table-responsive">
+                        <table class="table table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Email</td>
+                                    {% if is_admin %}<td>Department</td>{% endif %}
+                                    {% if is_admin %}<td>Head</td>{% endif %}
+                                    <td>Status</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if employees %}
+                                    {% for employee in employees %}
+                                        <tr>
+                                            <td>{{ employee }}</td>
+                                            <td>{{ employee.email }}</td>
+                                            {% if is_admin %}<td>{{ employee.department }}</td>{% endif %}
+                                            {% if is_admin %}<td>{{ employee.department }}</td>{% endif %}
+                                            <td>Status</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td>No employees</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
